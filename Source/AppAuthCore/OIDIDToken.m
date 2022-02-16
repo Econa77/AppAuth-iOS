@@ -88,6 +88,10 @@ static NSString *const kNonceKey = @"nonce";
         [[OIDFieldMapping alloc] initWithName:@"_expiresAt"
                                          type:[NSDate class]
                                    conversion:^id _Nullable(NSObject *_Nullable value) {
+          if ([value isKindOfClass:[NSString class]]) {
+            NSNumber *valueAsNumber = [NSNumber numberWithFloat:[(NSString *)value floatValue]];
+            return [NSDate dateWithTimeIntervalSince1970:valueAsNumber.longLongValue];
+          }
           if (![value isKindOfClass:[NSNumber class]]) {
             return value;
           }
@@ -98,6 +102,10 @@ static NSString *const kNonceKey = @"nonce";
         [[OIDFieldMapping alloc] initWithName:@"_issuedAt"
                                          type:[NSDate class]
                                    conversion:^id _Nullable(NSObject *_Nullable value) {
+          if ([value isKindOfClass:[NSString class]]) {
+            NSNumber *valueAsNumber = [NSNumber numberWithFloat:[(NSString *)value floatValue]];
+            return [NSDate dateWithTimeIntervalSince1970:valueAsNumber.longLongValue];
+          }
           if (![value isKindOfClass:[NSNumber class]]) {
             return value;
           }
